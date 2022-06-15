@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CategorieController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+
+<style>
+    h1{
+        color :black;
+        margin-top:10%;
+    }
+
+    form{
+        width:30%;
+        float:right;
+        margin-top:1%;
+    }
+
+     @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600);
+
+    *, *:before, *:after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+   
+    table {
+        background: #012B39;
+        border-radius: 0.25em;
+        border-collapse: collapse;
+        margin-left: 5em;
+        margin-top:2em;
+    }
+    th {
+        border-bottom: 1px solid #364043;
+        color: #E2B842;
+        font-size: 0.85em;
+        font-weight: 600;
+        padding: 0.5em 1em;
+        text-align: left;
+    }
+    td {
+        color: #fff;
+        font-weight: 400;
+        padding: 0.65em 1em;
+    }
+    .disabled td {
+        color: #4F5F64;
+    }
+    tbody tr {
+         transition: background 0.25s ease;
+    }
+    tbody tr:hover {
+         background: #014055;
+    }
+
+
+
+       
+</style>
+<div class="example-wrapper">
+    <h1>Formulaire d'enregistrement de Categorie</h1>
+    {{form(form)}}
+
+
+     <table>
+        <thead>
+            <tr>
+                <th>ID
+                <th>Nom-Categorie
+        </thead>
+        {% for p in  categories %}
+        <tbody>
+            <tr>
+                <td>{{p.id}}
+                <td>{{p.nomCategorie}}
+                <td><a href="" class="btn  btn-danger " >Supprimer</a>
+        </tbody>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

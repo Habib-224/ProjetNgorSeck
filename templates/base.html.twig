@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../../Public/css/style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+        <link rel="stylesheet" href="../../Public/boostrap/bootstrap.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Bootstrap CRUD Data Table for Database with Modal Form</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/popup.css">
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+           
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+
+    <style>
+          .form-group input{
+            width:75%;
+            margin-left:40px;
+            margin-top:20px;
+            padding:10px;
+        }
+
+            .modal-dialog{
+                width:300px;
+            }
+
+            .side-menu{
+            position: fixed;
+            background-color:#007bff;
+            width: 50vh;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            z-index: 2;
+        }
+
+        .side-menu .brand-name{
+            height: 13vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .side-menu li{
+            font-size: 16px;
+            padding: 17px 40px;
+            color:white;
+            display: flex;
+            align-items: center;
+        }
+
+        .side-menu li:hover{
+            background-color: white;
+            color:black;
+            cursor: pointer;
+        }
+
+        .container{
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 80vw;
+            background:white ;
+            z-index: 1;
+            
+        }
+
+        .container .header{
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 77vw;
+            height: 10vh;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 30px 30px 0 rgba(0, 0,0, 0.2);
+        }
+
+        .container .header .nav{
+            width: 90%;
+            display: flex;
+            align-items: center;
+        }
+
+        .container .header .nav .search{
+            flex: 3;
+        }
+
+        .container .header .nav .search input[type=text]{
+            border: none;
+            outline: none;
+            border-bottom: 1px solid darkgray;
+            width: 50%;
+            background: white;
+        }
+
+
+        .container .header .nav .search button{
+            width: 40px;
+            height: 40px;
+            border: none;
+        }
+
+        hr{
+            background-color: white;
+        }
+
+
+        .cards{
+            display: flex;
+            position: absolute;
+            margin-top: 13vh;
+            left: 25%;
+            padding-left: 20px;
+        }
+
+        .cards .card{
+            margin-right: 50px;
+            width: 280px;
+            background: white;
+            height: 150px;
+            box-shadow: 0px 30px 30px 0px rgba(0, 0,0, 0.2);
+        }
+
+        .cards .card:hover{
+            background: #007bff;
+            height: 170px;
+            transition: 0.5s;
+        }
+
+        .cards .card .box h1,p{
+            color:#343a40;
+            text-align: center;
+        }
+
+        .voir{
+            color: #28a745;   
+            text-align: end;
+            border-bottom: 1px solid darkgray;
+            cursor: pointer;
+        }
+
+        .tab {
+            display: flex;
+        }
+        .tab .table{
+            display: flex;
+            position: absolute;
+            top: 200px;
+            left: 150px;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+            background: white;
+            box-shadow: 0px 30px 30px 0px rgba(0, 0,0, 0.2);
+            width: 615px;
+        }
+
+        .recent .table{
+            display: flex;
+            position: absolute;
+            top: 280px;
+            left: 990px;
+            box-sizing: border-box;
+            background: white;
+            box-shadow: 0px 30px 30px 0px rgba(0, 0,0, 0.2);
+            width: 360px;
+        }
+
+        #icone{
+            margin-left: 20%;
+        }
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family:Georgia, 'Times New Roman', Times, serif;
+        }
+
+        body{
+            min-height: 100vh;
+        }
+
+        a{
+            text-decoration: none;
+        }
+
+        li{
+            list-style: none;
+            color: white;
+        }
+
+        h3{
+            color:white; 
+        }
+
+        .tab h6{
+            position:absolute;
+            left:42%;
+            top:41%;
+            background:white;
+            box-shadow: 0 30px 30px 0 rgba(0, 0,0, 0.2);
+            font-size:20px;
+        }
+
+        .recent h6{
+            position:absolute;
+            left:78%;
+            top:41%;
+            background:white;
+            box-shadow: 0 30px 30px 0 rgba(0, 0,0, 0.2);
+            font-size:20px;
+        }
+
+        #formulaire{
+            margin-top: 15%;
+            width: 60%;
+            margin-left: 250px;
+            background-color: white;
+            min-height: 200px;
+            box-shadow: 30px 30px 30px 30px rgba(0, 0,0, 0.2);
+        }
+
+        #formulaire input{
+            margin-left: 130px;
+        }
+        
+
+        #sub{
+            margin-left: 280px;
+        }
+
+    </style>
+    <body>
+        
+
+         <div class="side-menu">
+        <div class="brand-name">
+            <h3>Gestion/Produit</h3>
+        </div>
+        <hr>
+        <ul>
+            
+            <a href="/produit"><li class="li"><i class="fa fa-th">&nbsp;&nbsp;Produit</i></li></a>
+            <a href="/categorie"><li class="li"><i class="fa fa-users">&nbsp;&nbsp;Categorie</i></li></a>
+            <a href="/entree"><li class="li"><i class="fa fa-caret-right">&nbsp;&nbsp;Entrées/Produit</i></li></a>
+            <a href="/sortie"><li class="li"><i class="fa fa-caret-right">&nbsp;&nbsp;Sorties/Produit</i></li></a>
+        </ul>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <div class="nav">
+                <div class="search">
+                    <input type="text" placeholder="Search...">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </div>
+
+                <div class="user">
+                   <div class="container-xl">
+					    <a href="logout" class="btn  btn-primary "><span>Se Deconnecter</span></a>						
+			        </div>
+                </div>   
+		</div>        
+	</div>
+     {% block body %}{% endblock %}
+    </body>
+</html>
